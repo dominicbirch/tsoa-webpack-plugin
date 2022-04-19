@@ -1,4 +1,4 @@
-# TSOA webpack plugin
+# TSOA webpack plugin ![build](https://github.com/dominicbirch/tsoa-webpack-plugin/workflows/master/badge.svg) ![NPM version](https://badge.fury.io/js/tsoa-webpack-plugin.svg)
 This webpack plugin extends webpack builds with [tsoa](https://www.npmjs.com/package/tsoa) functionality.  This can be more convenient in scenarios where the configuration needs to be determined or needs to be dynamic.
 
 ## Hooks

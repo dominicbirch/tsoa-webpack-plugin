@@ -1,0 +1,19 @@
+name: master
+on: [push]
+jobs:
+  publish:
+    name: Publish package
+    needs: test
+    if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: CultureHQ/actions-yarn@v1.0.1
+    - run: yarn install
+
+    - uses: actions/setup-node@v2
+      with:
+        registry-url: 'https://registry.npmjs.org'
+    - run: yarn publish
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
