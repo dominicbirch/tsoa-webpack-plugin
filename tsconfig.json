@@ -1,0 +1,29 @@
+{
+  /* Visit https://aka.ms/tsconfig.json to read more about this file */
+  "include": ["./src/**/*.ts"],
+  "exclude": ["./src/**/*.test.ts"],
+  "compilerOptions": {
+    "typeRoots": ["./node_modules/@types/", "./src/@types/"],
+    "baseUrl": "./src/",
+    "outDir": "./lib/",
+    "target": "ES5",
+    "module": "ES2020",
+    "jsx": "react",
+    "strict": false,
+    "pretty": true,
+    "sourceMap": true,
+    "strictNullChecks": false,
+    "noImplicitAny": true,
+    "noImplicitThis": false,
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "traceResolution": true,
+    "downlevelIteration": true
+  }
+}
