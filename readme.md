@@ -1,5 +1,5 @@
 # TSOA webpack plugin
-This webpack plugin extends webpack builds with [https://www.npmjs.com/package/tsoa] functionality.  This can be more convenient in scenarios where the configuration needs to be determined or needs to be dynamic.
+This webpack plugin extends webpack builds with [tsoa](https://www.npmjs.com/package/tsoa) functionality.  This can be more convenient in scenarios where the configuration needs to be determined or needs to be dynamic.
 
 ## Hooks
 Adding the plugin has the following effects.
