@@ -3,7 +3,6 @@ on: [push]
 jobs:
   publish:
     name: Publish package
-    needs: test
     if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
