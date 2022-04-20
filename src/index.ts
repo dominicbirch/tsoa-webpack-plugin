@@ -1,7 +1,7 @@
 import type { Compiler, WebpackPluginInstance } from "webpack"
 import type { CompilerOptions } from "typescript"
 import { generateRoutes, generateSpec, Config } from "tsoa"
-
+import { GlobSync } from "glob"
 
 /**@augments Config
  * These are the `Config` options from TSOA, except that routes & spec are individually optional (and/or)
@@ -50,7 +50,6 @@ export class TsoaWebpackPlugin implements WebpackPluginInstance {
                     return;
                 }
 
-                const { GlobSync } = await import("glob");
                 if (this._options.controllerPathGlobs?.some(g => new GlobSync(g).found.some(f => c.modifiedFiles.has(f)))) {
                     this["meta"] = await routes(this._options);
                 }

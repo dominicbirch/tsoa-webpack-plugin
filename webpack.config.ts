@@ -22,6 +22,13 @@ export default {
       name: packageName,
       umdNamedDefine: true,
     },
+    environment: {
+      dynamicImport: true,
+      module: true,
+      destructuring: true,
+      arrowFunction: true,
+      optionalChaining: true,
+    },
   },
   resolve: {
     modules: [srcPath, "node_modules"],
