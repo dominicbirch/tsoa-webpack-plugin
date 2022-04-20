@@ -1,17 +1,17 @@
-const BundleDeclarationsWebpackPlugin = require("bundle-declarations-webpack-plugin"),
+import BundleDeclarationsWebpackPlugin from "bundle-declarations-webpack-plugin";
+import path from "path";
+
+const
   { name: packageName } = require("./package.json"),
-  path = require("path"),
   srcPath = path.resolve(__dirname, "src"),
   outPath = path.resolve(__dirname, ".dist");
 
-/**
- * @type import("webpack").Configuration
- */
-module.exports = {
+  
+export default {
   target: "node",
   mode: "production",
   entry: {
-      index: "./src/index.ts",
+    index: "./src/index.ts",
   },
   output: {
     clean: true,

@@ -25,5 +25,13 @@
     "emitDecoratorMetadata": true,
     "traceResolution": true,
     "downlevelIteration": true
+  },
+  /* This is used for type-checked configuration only */
+  "ts-node": {
+    "include": ["**/*.ts"],
+    "compilerOptions": {
+      "module": "CommonJS",
+      "target": "ES6"
+    }
   }
 }
