@@ -35,7 +35,7 @@ export default {
     extensions: [".js", ".ts", ".ejs", ".cjs", ".json"],
   },
   externalsPresets: { node: true },
-  externals: ["glob", "tsoa"],
+  externals: ["tsoa"],
   plugins: [
     new BundleDeclarationsWebpackPlugin({
       entry: {
