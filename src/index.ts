@@ -33,6 +33,8 @@ type WebpackLogger = {
     timeAggregateEnd(label?: any): void;
 };
 
+
+
 async function routes({ entryFile, noImplicitAdditionalProperties, routes, compilerOptions, ignore }: Options, logger?: WebpackLogger) {
     logger?.info("Generating routes...");
 
@@ -69,12 +71,12 @@ export class TsoaWebpackPlugin implements WebpackPluginInstance {
     /**@inheritdoc */
     apply(compiler: Compiler) {
         if (this._options.routes) {
-            compiler.hooks.beforeRun.tapPromise(NAME,  c =>
+            compiler.hooks.beforeRun.tapPromise(NAME, c =>
                 routes(this._options, c.getInfrastructureLogger(NAME))
             );
-            compiler.hooks.watchRun.tapPromise(NAME, async ({ modifiedFiles, getInfrastructureLogger }) => {
-                if (!modifiedFiles || ![...modifiedFiles].every(m => m.includes(this._options.routes.routesFileName))) {
-                    await routes(this._options, getInfrastructureLogger(NAME));
+            compiler.hooks.watchRun.tapPromise(NAME, async c => {
+                if (!c.modifiedFiles || ![...c.modifiedFiles].every(m => m.includes(this._options.routes.routesFileName || "routes.ts"))) {
+                    await routes(this._options, c.getInfrastructureLogger(NAME));
                 }
             });
         }

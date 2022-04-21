@@ -1,6 +1,6 @@
 {
   "name": "tsoa-webpack-plugin",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Webpack plugin which may be used to integrate TSOA with your typescript server bundles in order to generate swagger routes and spec as part of the webpack build",
   "main": ".dist/index.js",
   "module": ".dist/index.js",
