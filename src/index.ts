@@ -81,7 +81,7 @@ export class TsoaWebpackPlugin implements WebpackPluginInstance {
             });
         }
         if (this._options.spec) {
-            compiler.hooks.afterEmit.tapPromise(NAME, c =>
+            compiler.hooks.emit.tapPromise(NAME, c =>
                 spec(this._options, c.getLogger(NAME))
             );
         }
