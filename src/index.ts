@@ -1,6 +1,8 @@
+import { join, relative } from "path";
+import { readdir, stat, readFile } from "fs/promises";
 import { Config, generateRoutes, generateSpec } from "tsoa";
 import type { CompilerOptions } from "typescript";
-import type { Compiler, WebpackPluginInstance } from "webpack";
+import { Compilation, Compiler, WebpackPluginInstance, sources } from "webpack";
 
 /**@augments Config
  * These are the `Config` options from TSOA, except that routes & spec are individually optional (and/or)
@@ -34,9 +36,8 @@ type WebpackLogger = {
 };
 
 
-
 async function routes({ entryFile, noImplicitAdditionalProperties, routes, compilerOptions, ignore }: Options, logger?: WebpackLogger) {
-    logger?.info("Generating routes...");
+    logger?.log("Generating routes...");
 
     const { controllers, referenceTypeMap } = await generateRoutes({
         entryFile,
@@ -44,11 +45,11 @@ async function routes({ entryFile, noImplicitAdditionalProperties, routes, compi
         ...routes,
     }, <CompilerOptions>compilerOptions, ignore);
 
-    logger?.info("Routes generated ^.^/", controllers, referenceTypeMap);
+    logger?.log("Routes generated ^.^/", controllers, referenceTypeMap);
 }
 
 async function spec({ entryFile, noImplicitAdditionalProperties, spec, compilerOptions, ignore }: Options, logger?: WebpackLogger) {
-    logger?.info("Generating spec...");
+    logger?.log("Generating spec...");
 
     const { controllers, referenceTypeMap } = await generateSpec({
         entryFile,
@@ -56,7 +57,7 @@ async function spec({ entryFile, noImplicitAdditionalProperties, spec, compilerO
         ...spec,
     }, <CompilerOptions>compilerOptions, ignore);
 
-    logger?.info("Spec generated ^.^/", controllers, referenceTypeMap);
+    logger?.log("Spec generated ^.^/", controllers, referenceTypeMap);
 }
 
 /**Integrates the following as a webpack plugin
