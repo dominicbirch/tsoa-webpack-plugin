@@ -1,8 +1,7 @@
 import { join, relative } from "path";
-import { readdir, stat, readFile } from "fs/promises";
 import { Config, generateRoutes, generateSpec } from "tsoa";
 import type { CompilerOptions } from "typescript";
-import { Compilation, Compiler, WebpackPluginInstance, sources } from "webpack";
+import type { Compiler, WebpackPluginInstance } from "webpack";
 
 /**@augments Config
  * These are the `Config` options from TSOA, except that routes & spec are individually optional (and/or)
@@ -82,9 +81,20 @@ export class TsoaWebpackPlugin implements WebpackPluginInstance {
             });
         }
         if (this._options.spec) {
-            compiler.hooks.emit.tapPromise(NAME, c =>
-                spec(this._options, c.getLogger(NAME))
-            );
+            compiler.hooks.thisCompilation.tap(NAME, (c, _params) => {
+                const { sources, Compilation } = compiler.webpack;
+
+                c.hooks.processAssets.tapPromise({ name: NAME, stage: Compilation.PROCESS_ASSETS_STAGE_SUMMARIZE }, async (_assets) => {
+                    await spec(this._options, c.getLogger(NAME));
+
+                    const
+                        { readFile } = await import("fs/promises"),
+                        absolutePath = join(this._options.spec.outputDirectory || c.outputOptions.path, `${this._options.spec.specFileBaseName || "swagger"}.${this._options.spec.yaml ? "yaml" : "json"}`),
+                        { RawSource } = sources;
+
+                    c.emitAsset(relative(c.outputOptions.path, absolutePath), new RawSource(await readFile(absolutePath)));
+                });
+            });
         }
     }
 }
